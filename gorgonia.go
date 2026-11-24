@@ -207,39 +207,14 @@ func OneHotVector(id, classes int, t tensor.Dtype, opts ...NodeConsOpt) *Node {
 	return NewConstant(T, opts...)
 }
 
-// Grad takes a scalar cost node and a list of with-regards-to, and returns the gradient
+// Grad takes a scalar cost node and a list of with-regards-to inputs, and
+// returns the gradient nodes. It is safe to call repeatedly on the same graph;
+// see Differentiate for the full lifecycle contract.
+//
+// Deprecated: use Differentiate, which is the same function under a more
+// explicit name.
 func Grad(cost *Node, WRTs ...*Node) (retVal Nodes, err error) {
-	symdiffLogf("Cost:%v", cost)
-	if !cost.IsScalar() {
-		return nil, errors.Errorf("Expected Cost to be a scalar. Got %v instead", cost)
-	}
-
-	for i, n := range WRTs {
-		if !n.isInput() {
-			err = errors.Errorf("Can only differentiate with regards to input nodes. %dth Node %v isn't an input", i, n)
-			return nil, err
-		}
-	}
-
-	var dt tensor.Dtype
-	var ok bool
-	if dt, ok = cost.t.(tensor.Dtype); !ok {
-		err = errors.Wrap(err, "Expected a scalar dtype for cost")
-		return
-	}
-
-	var gradOut *Node
-	switch dt {
-	case Float64:
-		gradOut = onef64
-	case Float32:
-		gradOut = onef32
-	default:
-		return nil, errors.Wrapf(err, "%s not yet implemented for %v of %T", dt.String(), "Grad()'s gradOut", gradOut)
-	}
-
-	gradOut = cost.g.AddNode(gradOut)
-	return Backpropagate(Nodes{cost}, Nodes{gradOut}, Nodes(WRTs))
+	return Differentiate(cost, WRTs...)
 }
 
 // Let binds a Value to a node that is a variable. A variable is represented as a *Node with no Op.

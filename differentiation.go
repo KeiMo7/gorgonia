@@ -131,6 +131,16 @@ func backwardDiffAnalysis(wrt, sortedNodes Nodes) (retVal NodeSet, err error) {
 //
 // For most cases, Grad() should be used instead of Backpropagate(), as Grad() performs several checks which would be the general use case, before calling Backpropagate()
 func Backpropagate(outputs, gradOutputs, wrt Nodes) (retVal Nodes, err error) {
+	return backpropagate(outputs, gradOutputs, wrt, true)
+}
+
+// backpropagate is the implementation of Backpropagate.
+//
+// prune controls whether isolated ("forever alone") nodes are removed from the graph as a
+// side effect of differentiation. The public Backpropagate keeps its historical behaviour
+// (prune == true). The lifecycle-aware Differentiate() passes prune == false so that
+// differentiation never silently deletes user nodes and can be undone exactly.
+func backpropagate(outputs, gradOutputs, wrt Nodes, prune bool) (retVal Nodes, err error) {
 	symdiffLogf("BACKPROP START")
 	symdiffLogf("Outputs: %d", outputs)
 	symdiffLogf("gradOutputs: %d", gradOutputs)
@@ -139,23 +149,31 @@ func Backpropagate(outputs, gradOutputs, wrt Nodes) (retVal Nodes, err error) {
 	enterLogScope()
 	defer leaveLogScope()
 
+	if len(outputs) == 0 {
+		return nil, SymDiffError{err: errors.New("No outputs supplied to backpropagate")}
+	}
 	g := outputs[0].g
+	if g == nil {
+		return nil, SymDiffError{err: errors.New("Output node is not part of any graph")}
+	}
 
 	// this entire section about removing foreveralone nodes need a rethink
-	symdiffLogf("removing foreveralone nodes")
-	enterLogScope()
-	for i := 0; i < len(g.AllNodes()); i++ {
-		n := g.AllNodes()[i]
+	if prune {
+		symdiffLogf("removing foreveralone nodes")
+		enterLogScope()
+		for i := 0; i < len(g.AllNodes()); i++ {
+			n := g.AllNodes()[i]
 
-		fr := g.From(n.ID()).Len()
-		to := g.To(n.ID()).Len()
+			fr := g.From(n.ID()).Len()
+			to := g.To(n.ID()).Len()
 
-		if fr == 0 && to == 0 && !n.isConstant() && !n.isInput() {
-			g.RemoveNode(n)
-			symdiffLogf("removed %v(%p); %x; %s", n, n, n.ID(), n.Name())
+			if fr == 0 && to == 0 && !n.isConstant() && !n.isInput() {
+				g.RemoveNode(n)
+				symdiffLogf("removed %v(%p); %x; %s", n, n, n.ID(), n.Name())
+			}
 		}
+		leaveLogScope()
 	}
-	leaveLogScope()
 
 	var sortedNodes Nodes
 	if sortedNodes, err = Sort(g); err != nil {

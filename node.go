@@ -57,6 +57,12 @@ type Node struct {
 	unchanged     bool // has this node been modified
 	isStmt        bool // is this a statement node
 	ofInterest    bool // is this node of particular interest? (for debugging)
+
+	// gradDirty marks a parameter whose gradient could not be written by a
+	// solver step. The next differentiation must not accumulate onto a
+	// stale value, so the gradient is zeroed before use. See
+	// solver_lifecycle.go.
+	gradDirty bool
 }
 
 // NodeConsOpt is a function that provides construction options for any Node.

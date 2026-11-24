@@ -1,0 +1,137 @@
+=== go version ===
+go version go1.27.4 linux/amd64
+=== go build . ===
+=== go test -count=1 -v -run TestDifferentiate|TestGradCheck|TestGradientPool|TestTrainingSession|TestMarkGradDirty . ===
+=== RUN   TestDifferentiate_RepeatSameCostStable
+--- PASS: TestDifferentiate_RepeatSameCostStable (0.00s)
+=== RUN   TestDifferentiate_SharedSubgraphMatchesFreshGraph
+--- PASS: TestDifferentiate_SharedSubgraphMatchesFreshGraph (0.00s)
+=== RUN   TestDifferentiate_NodeCountBounded
+--- PASS: TestDifferentiate_NodeCountBounded (0.00s)
+=== RUN   TestDifferentiate_ResetRestoresGraph
+--- PASS: TestDifferentiate_ResetRestoresGraph (0.00s)
+=== RUN   TestDifferentiate_RepeatedResetCycle
+--- PASS: TestDifferentiate_RepeatedResetCycle (0.00s)
+=== RUN   TestDifferentiate_ErrorKinds
+--- PASS: TestDifferentiate_ErrorKinds (0.00s)
+=== RUN   TestDifferentiate_FailureRollsBack
+--- PASS: TestDifferentiate_FailureRollsBack (0.00s)
+=== RUN   TestDifferentiate_ConcurrentSessions
+--- PASS: TestDifferentiate_ConcurrentSessions (0.00s)
+=== RUN   TestDifferentiate_ConcurrentSameGraph
+--- PASS: TestDifferentiate_ConcurrentSameGraph (0.00s)
+=== RUN   TestDifferentiate_DifferentParamSets
+--- PASS: TestDifferentiate_DifferentParamSets (0.00s)
+=== RUN   TestDifferentiate_DeterministicAcrossRuns
+--- PASS: TestDifferentiate_DeterministicAcrossRuns (0.00s)
+=== RUN   TestDifferentiate_HelperMethods
+--- PASS: TestDifferentiate_HelperMethods (0.00s)
+=== RUN   TestDifferentiate_MatrixSharedSubgraph
+--- PASS: TestDifferentiate_MatrixSharedSubgraph (0.00s)
+=== RUN   TestDifferentiate_StaleMarksRejected
+--- PASS: TestDifferentiate_StaleMarksRejected (0.00s)
+=== RUN   TestDifferentiate_BrokenGraphIsExplicit
+--- PASS: TestDifferentiate_BrokenGraphIsExplicit (0.00s)
+=== RUN   TestDifferentiate_BackpropagateStillWorks
+--- PASS: TestDifferentiate_BackpropagateStillWorks (0.00s)
+=== RUN   TestDifferentiate_RecoversAfterRollbackFailure
+--- PASS: TestDifferentiate_RecoversAfterRollbackFailure (0.00s)
+=== RUN   TestGradCheck_ScalarPasses
+--- PASS: TestGradCheck_ScalarPasses (0.00s)
+=== RUN   TestGradCheck_Deterministic
+--- PASS: TestGradCheck_Deterministic (0.00s)
+=== RUN   TestGradCheck_MatrixPointwiseReduction
+--- PASS: TestGradCheck_MatrixPointwiseReduction (0.00s)
+=== RUN   TestGradCheck_MatMul
+--- PASS: TestGradCheck_MatMul (0.01s)
+=== RUN   TestGradCheck_PerParamWorstLocation
+--- PASS: TestGradCheck_PerParamWorstLocation (0.00s)
+=== RUN   TestGradCheck_WrongGradientIsCaught
+--- PASS: TestGradCheck_WrongGradientIsCaught (0.00s)
+=== RUN   TestGradCheck_SkipsNonFloat
+--- PASS: TestGradCheck_SkipsNonFloat (0.00s)
+=== RUN   TestGradCheck_ReportStringStable
+--- PASS: TestGradCheck_ReportStringStable (0.00s)
+=== RUN   TestGradCheck_ToleranceConfigurable
+--- PASS: TestGradCheck_ToleranceConfigurable (0.00s)
+=== RUN   TestGradCheck_MaxEntries
+--- PASS: TestGradCheck_MaxEntries (0.00s)
+=== RUN   TestGradCheck_RestoresValues
+--- PASS: TestGradCheck_RestoresValues (0.00s)
+=== RUN   TestGradCheck_MatrixMultiplyAnalytic
+--- PASS: TestGradCheck_MatrixMultiplyAnalytic (0.00s)
+=== RUN   TestGradCheck_Float32
+--- PASS: TestGradCheck_Float32 (0.00s)
+=== RUN   TestGradCheck_ElementwiseOperators
+=== RUN   TestGradCheck_ElementwiseOperators/exp
+=== RUN   TestGradCheck_ElementwiseOperators/ln
+=== RUN   TestGradCheck_ElementwiseOperators/tanh
+=== RUN   TestGradCheck_ElementwiseOperators/sigmoid
+=== RUN   TestGradCheck_ElementwiseOperators/cube
+=== RUN   TestGradCheck_ElementwiseOperators/sqrt
+=== RUN   TestGradCheck_ElementwiseOperators/inverse
+=== RUN   TestGradCheck_ElementwiseOperators/sin
+=== RUN   TestGradCheck_ElementwiseOperators/cos
+=== RUN   TestGradCheck_ElementwiseOperators/softplus
+--- PASS: TestGradCheck_ElementwiseOperators (0.01s)
+    --- PASS: TestGradCheck_ElementwiseOperators/exp (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/ln (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/tanh (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/sigmoid (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/cube (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/sqrt (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/inverse (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/sin (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/cos (0.00s)
+    --- PASS: TestGradCheck_ElementwiseOperators/softplus (0.00s)
+=== RUN   TestGradCheck_MixedExpression
+--- PASS: TestGradCheck_MixedExpression (0.01s)
+=== RUN   TestGradCheck_WrongGradientPointsAtParameter
+--- PASS: TestGradCheck_WrongGradientPointsAtParameter (0.00s)
+=== RUN   TestGradientPool_ReuseAndZeroOnBorrow
+--- PASS: TestGradientPool_ReuseAndZeroOnBorrow (0.00s)
+=== RUN   TestGradientPool_GroupedByShapeAndDtype
+--- PASS: TestGradientPool_GroupedByShapeAndDtype (0.00s)
+=== RUN   TestGradientPool_ReleasedHandleIsInvalid
+--- PASS: TestGradientPool_ReleasedHandleIsInvalid (0.00s)
+=== RUN   TestGradientPool_StaleHandleAfterReissue
+--- PASS: TestGradientPool_StaleHandleAfterReissue (0.00s)
+=== RUN   TestGradientPool_RetainBlocksReturn
+--- PASS: TestGradientPool_RetainBlocksReturn (0.00s)
+=== RUN   TestGradientPool_ExclusiveOwnership
+--- PASS: TestGradientPool_ExclusiveOwnership (0.00s)
+=== RUN   TestGradientPool_StatsSnapshotHoldsNoBuffers
+--- PASS: TestGradientPool_StatsSnapshotHoldsNoBuffers (0.00s)
+=== RUN   TestGradientPool_FloatOnly
+--- PASS: TestGradientPool_FloatOnly (0.00s)
+=== RUN   TestGradientPool_ConcurrentUse
+--- PASS: TestGradientPool_ConcurrentUse (0.00s)
+=== RUN   TestGradientPool_TryGetRejectsWhenBusy
+--- PASS: TestGradientPool_TryGetRejectsWhenBusy (0.00s)
+=== RUN   TestGradientPool_Release
+--- PASS: TestGradientPool_Release (0.00s)
+=== RUN   TestTrainingSession_CleanGradientEachIteration
+--- PASS: TestTrainingSession_CleanGradientEachIteration (0.00s)
+=== RUN   TestTrainingSession_GradientCleanAfterFailure
+--- PASS: TestTrainingSession_GradientCleanAfterFailure (0.00s)
+=== RUN   TestTrainingSession_IterationMatchesIndependentRun
+--- PASS: TestTrainingSession_IterationMatchesIndependentRun (0.00s)
+=== RUN   TestTrainingSession_BufferLifecycle
+--- PASS: TestTrainingSession_BufferLifecycle (0.00s)
+=== RUN   TestTrainingSession_BuffersReturnedOnFailure
+--- PASS: TestTrainingSession_BuffersReturnedOnFailure (0.00s)
+=== RUN   TestMarkGradDirty_ZeroesGradient
+--- PASS: TestMarkGradDirty_ZeroesGradient (0.00s)
+=== RUN   TestTrainingSession_ConcurrentSessions
+--- PASS: TestTrainingSession_ConcurrentSessions (0.00s)
+=== RUN   TestTrainingSession_FullLoopConverges
+--- PASS: TestTrainingSession_FullLoopConverges (0.01s)
+=== RUN   TestTrainingSession_GradientBufferZeroAtTakeOut
+--- PASS: TestTrainingSession_GradientBufferZeroAtTakeOut (0.00s)
+PASS
+ok  	gorgonia.org/gorgonia	0.086s
+=== go test -count=1 -race -run TestDifferentiate|TestGradCheck|TestGradientPool|TestTrainingSession|TestMarkGradDirty . ===
+ok  	gorgonia.org/gorgonia	1.381s
+=== go test -count=1 . ===
+ok  	gorgonia.org/gorgonia	2.040s
+All verification steps passed. Log saved to /home/wll/uidreczz28dV8YMfrWt/output/lifecycle_verify.log

@@ -40,6 +40,7 @@ func returnNode(n *Node) {
 	n.unchanged = false
 	n.isStmt = false
 	n.ofInterest = false
+	n.gradDirty = false
 
 	nodePool.Put(n)
 }

@@ -3,6 +3,7 @@ package gorgonia
 import (
 	"bytes"
 	"fmt"
+	"sync"
 
 	"github.com/awalterschulze/gographviz"
 	"gonum.org/v1/gonum/graph"
@@ -25,6 +26,18 @@ type ExprGraph struct {
 	constants Nodes
 	roots     Nodes
 	counter   uint
+
+	// differentiation lifecycle bookkeeping. See differentiation_lifecycle.go.
+	// The mutex serializes Differentiate() calls on the same graph; it is never
+	// copied (Clone and subgraph build fresh graphs).
+	diffMu           sync.Mutex
+	diffSlots        map[string]*differentiationSlot
+	diffActive       *differentiationSlot
+	diffBrokenReason string
+	diffHaveBase     bool
+	diffBaseDerivs   map[*Node]*Node
+	diffBaseDerivOfs map[*Node]Nodes
+	diffBaseRoots    Nodes
 }
 
 // graphconopt sets options
