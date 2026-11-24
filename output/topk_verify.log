@@ -1,0 +1,61 @@
+=== go version ===
+go version go1.23.4 linux/amd64
+=== go build . ===
+=== go test -count=1 -v -run TopK|ArgMax|ArgMin . ===
+=== RUN   TestTopKOpDo_Basic2D
+--- PASS: TestTopKOpDo_Basic2D (0.00s)
+=== RUN   TestTopKOpDo_Batched3D
+--- PASS: TestTopKOpDo_Batched3D (0.00s)
+=== RUN   TestTopKOpDo_NegativeAxes
+--- PASS: TestTopKOpDo_NegativeAxes (0.00s)
+=== RUN   TestTopKOpDo_KClampedAndZero
+--- PASS: TestTopKOpDo_KClampedAndZero (0.00s)
+=== RUN   TestTopKOpDo_EmptyInput
+--- PASS: TestTopKOpDo_EmptyInput (0.00s)
+=== RUN   TestTopKOpDo_StabilityAcrossRuns
+--- PASS: TestTopKOpDo_StabilityAcrossRuns (0.00s)
+=== RUN   TestTopKOpDo_InfAndNaN
+--- PASS: TestTopKOpDo_InfAndNaN (0.00s)
+=== RUN   TestTopKOpDo_Dtypes
+--- PASS: TestTopKOpDo_Dtypes (0.00s)
+=== RUN   TestTopKOpDo_DoesNotMutateInput
+--- PASS: TestTopKOpDo_DoesNotMutateInput (0.00s)
+=== RUN   TestTopKOpDo_InputNotMutatedByGather
+--- PASS: TestTopKOpDo_InputNotMutatedByGather (0.00s)
+=== RUN   TestTopKOpDo_TransposedInput
+--- PASS: TestTopKOpDo_TransposedInput (0.00s)
+=== RUN   TestTopKOp_ConstructionErrors
+--- PASS: TestTopKOp_ConstructionErrors (0.00s)
+=== RUN   TestTopKOp_UnsupportedDtype
+--- PASS: TestTopKOp_UnsupportedDtype (0.00s)
+=== RUN   TestTopKOp_HashAndEquality
+--- PASS: TestTopKOp_HashAndEquality (0.00s)
+=== RUN   TestTopKOp_StringAndInterfaces
+--- PASS: TestTopKOp_StringAndInterfaces (0.00s)
+=== RUN   TestTopKGraph_ShapeAndType
+--- PASS: TestTopKGraph_ShapeAndType (0.00s)
+=== RUN   TestTopKGraph_BadConstructionFailsAtBuild
+--- PASS: TestTopKGraph_BadConstructionFailsAtBuild (0.00s)
+=== RUN   TestTopKEngines_Agree
+--- PASS: TestTopKEngines_Agree (0.00s)
+=== RUN   TestTopKGrad_TapeMachine
+--- PASS: TestTopKGrad_TapeMachine (0.00s)
+=== RUN   TestTopKGrad_LispMachine
+--- PASS: TestTopKGrad_LispMachine (0.00s)
+=== RUN   TestTopKGrad_NumericCheck
+--- PASS: TestTopKGrad_NumericCheck (0.00s)
+=== RUN   TestTopKGrad_NumericCheckFloat32
+--- PASS: TestTopKGrad_NumericCheckFloat32 (0.00s)
+=== RUN   TestTopKGrad_AccumulatesRepeatedSelection
+--- PASS: TestTopKGrad_AccumulatesRepeatedSelection (0.00s)
+=== RUN   TestTopKIndices_NotDifferentiable
+--- PASS: TestTopKIndices_NotDifferentiable (0.00s)
+=== RUN   TestArgMaxArgMin_K1Consistency
+--- PASS: TestArgMaxArgMin_K1Consistency (0.00s)
+=== RUN   TestTopK_DeviceRejection
+--- PASS: TestTopK_DeviceRejection (0.00s)
+PASS
+ok  	gorgonia.org/gorgonia	0.009s
+=== go test -count=1 . ===
+ok  	gorgonia.org/gorgonia	1.979s
+All verification steps passed. Log saved to /home/wll/uid101/output/topk_verify.log
